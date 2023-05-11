@@ -1,8 +1,8 @@
-# utilmaths README
+# *utilmaths* 
 
-A short header-based library of maths functions for scientific comuting in `C++`.
+A short, header-based, library of maths functions for scientific comuting in `C++`, written for personal use and tested with [`gtest`](https://github.com/google/googletest).
 
-#### features:
+#### Features:
 - complex numbers
 
 #### TODO:
