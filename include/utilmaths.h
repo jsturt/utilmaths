@@ -14,11 +14,10 @@ namespace utilmaths{
 		{
 			T x;
 			T i;
-			// constructors and user-defined conversion functions
-			//template<arithmetic R>
-			//explicit complex(R)
-			//template<arithmetic R>
-			//operator R() const {return static_cast<R>(mod(*this));}
+			complex(T _x, T _i) : x{_x}, i{_i} {};
+			complex(T z) : x{z}, i{z} {};
+			template<arithmetic R>
+			explicit operator R() const {return static_cast<R>(mod(*this));}
 
 			template<arithmetic R>
 			complex 	operator+(const complex<R> &rhs)	const {return {x+rhs.x, i+rhs.i};}
@@ -64,8 +63,7 @@ namespace utilmaths{
 		template<arithmetic T>
 		const bool 				isReal(const complex<T> &z) {return z.i==0;}
 		template<arithmetic T>
-		const complex<T> 	exp(const T &t)							{return {0.0f,0.0f};}
-
+		const complex<T> 	exp(const complex<T> &z)		{return {(T)(std::exp(z.x)*cos(z.i)),(T)(std::exp(z.x)*sin(z.i))};}
 	}
 
 	namespace linalg{

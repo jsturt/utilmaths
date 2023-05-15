@@ -1,12 +1,28 @@
 #include "gtest/gtest.h"
+#include <iostream>
 #include "utilmaths.h"
 
 using namespace utilmaths;
 
-//TEST(ComplexTesting,ArgsFloatDouble)
-//{
-//	complex::complex c1 = {1.0f,1.0d};
-//}
+TEST(ComplexTesting,ConversionConstructor)
+{
+	complex::complex c1 = 0;
+	complex::complex c2 = {0.0f,0.0f};
+
+	EXPECT_EQ(c1,c2);
+
+}
+
+TEST(ComplexTesting,OperatorConversion)
+{
+	complex::complex c1 = {1.0f,0.0f};
+	complex::complex c2 = {1.0d,1.0d};
+
+	EXPECT_EQ((float) c1,1.0f);
+	EXPECT_EQ((int) c1, 1);
+	EXPECT_EQ((float) c2, (float) sqrt(2));
+	EXPECT_EQ((double) c2, sqrt(2));
+}
 
 TEST(ComplexTesting,OperatorPlus)
 {
@@ -297,41 +313,17 @@ TEST(ComplexTesting,FunctionisReal)
 TEST(ComplexTesting,FunctionExp)
 {
 	float theta = 0.0f;
-	float tau = 2.0f * M_PI;
-	complex::complex c1 = {1.0f,0.0f};
+	double tau = 2.0d * M_PI;
+	complex::complex i1 = {0.0d,0.0d};
+	complex::complex c1 = {1.0d,0.0d};
+	complex::complex i2 = {0.0d,tau};
 	complex::complex c2 = {0.0f,1.0f};
-	complex::complex c3 = -1*c2;
+	complex::complex i3 = {1.0d,M_PI/2};
+	complex::complex c3 = {0.0d,M_E};
 
-	EXPECT_EQ(complex::exp(theta),c1);
-	EXPECT_EQ(complex::exp(tau),	c1);
-	//EXPECT_EQ(complex::exp(M_PI), c2);
-	//EXPECT_EQ(complex::exp(-M_PI),c3); 
-
+	EXPECT_EQ(complex::exp(i1),c1);
+	EXPECT_NEAR(complex::exp(i2).i,	c1.i,1e-15);
+	EXPECT_NEAR(complex::exp(i2/4).i, c2.i,1e-15);
+	EXPECT_NEAR(complex::exp(i3).x,c3.x,1e-15);
+	EXPECT_NEAR(complex::exp(i3).i,c3.i,1e-15);
 }
-
-/*
-
-	 how do I want to use these utilities?
-	 having to do utilmaths::complex::complex cnum = {1,1}; would be a bit much maybe?
-	 even if we do :
-
-	 using namespace utilmaths
-	 complex::complex cnum = {1,1};
-	 if(complex::isReal(cnum))
-	 {
-			std::cout<<"it's real!\n";
-	 }
-
-	 that is a little verbose?
-
-	 without the complex namespace and wrapping methods such as isReal() and conj()
-	 into the struct gives the following:
-
-	 using namespace utilmaths;
-	 complex cnum = {1,1};
-	 if(cnum.isReal())
-	 {
-			std::cout<<"it's real!\n";
-	 }
-*/ 
-
