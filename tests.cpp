@@ -3,13 +3,21 @@
 
 using namespace utilmaths;
 
+//TEST(ComplexTesting,ArgsFloatDouble)
+//{
+//	complex::complex c1 = {1.0f,1.0d};
+//}
+
 TEST(ComplexTesting,OperatorPlus)
 {
 	complex::complex c1 = {1,1};
 	complex::complex c2 = {0,1};
 	complex::complex c3 = {1,2};
 
+	complex::complex c4 = {0.0f,0.0f};
+
 	EXPECT_EQ(c1+c2,c3);
+	EXPECT_EQ(c1+c4,c1);
 }
 
 TEST(ComplexTesting,OperatorMinus)
@@ -18,7 +26,10 @@ TEST(ComplexTesting,OperatorMinus)
 	complex::complex c2 = {0,1};
 	complex::complex c3 = {1,0};
 
+	complex::complex c4 = {0.0f,1.0f};
+
 	EXPECT_EQ(c1-c2,c3);
+	EXPECT_EQ(c1-c4,c3);
 }
 
 TEST(ComplexTesting,OperatorTimes)
@@ -29,8 +40,12 @@ TEST(ComplexTesting,OperatorTimes)
 	complex::complex c4 = {2,3};
 	complex::complex c5 = {-15,23};
 
+	complex::complex c6 = {0.f,2.f};
+
 	EXPECT_EQ(c1*c2,c3);
 	EXPECT_EQ(c1*c4,c5);
+
+	EXPECT_EQ(c1*c6,c3);
 }
 
 TEST(ComplexTesting,OperatorDivide)
@@ -39,7 +54,10 @@ TEST(ComplexTesting,OperatorDivide)
 	complex::complex c2 = {4.0f,2.0f};
 	complex::complex c3 = {1.4f,0.8f};
 
+	complex::complex c4 = {4,2};
+
 	EXPECT_EQ(c1/c2,c3);
+	EXPECT_EQ(c1/c4,c3);
 }
 
 TEST(ComplexTesting,OperatorScalarDivisionLHS)
@@ -47,6 +65,7 @@ TEST(ComplexTesting,OperatorScalarDivisionLHS)
 	complex::complex c1 = {2.0f,5.0f};
 	complex::complex c2 = {1.0f,2.5f};
 	EXPECT_EQ(c1/2.0f,c2);
+	EXPECT_EQ(c1/2,c2);
 }
 
 TEST(ComplexTesting,OperatorScalarTimesLHS)
@@ -84,9 +103,14 @@ TEST(ComplexTesting,OperatorEquals)
 	complex::complex c1 = {-6.0f,2.0f};
 	complex::complex c2 = {7.0f,11.0f};
 
+	complex::complex c3 = {1,2};
+
 	c1=c2;
+	c3=c2;
 
 	EXPECT_EQ(c1,c2);
+
+	EXPECT_EQ(c2,c3);
 }
 
 TEST(ComplexTesting,OperatorPlusEquals)
@@ -95,9 +119,14 @@ TEST(ComplexTesting,OperatorPlusEquals)
 	complex::complex c2 = {1,1};
 	complex::complex c3 = {4,8};
 
+	complex::complex c4 = {1.0f,1.0f};
+	complex::complex c5 = {3,7};
+
 	c1 += c2;
+	c5 += c4;
 
 	EXPECT_EQ(c1,c3);
+	EXPECT_EQ(c5,c3);
 }
 
 TEST(ComplexTesting,OperatorTimesEquals)
@@ -106,9 +135,14 @@ TEST(ComplexTesting,OperatorTimesEquals)
 	complex::complex c2 = {4,2};
 	complex::complex c3 = {-2,34};
 
+	complex::complex c4 = {3.0f,7.0f};
+
 	c1 *= c2;
+	c4 *= c2;
 
 	EXPECT_EQ(c1,c3);
+
+	EXPECT_EQ(c4,c3);
 }
 
 TEST(ComplexTesting,OperatorScalarTimesEquals)
@@ -127,9 +161,15 @@ TEST(ComplexTesting,OperatorDivideEquals)
 	complex::complex c2 = {4.0f,2.0f};
 	complex::complex c3 = {1.4f,0.8f};
 
+	complex::complex c4 = {4,6};
+
 	c1 /= c2;
+	c4 /= c2;
 
 	EXPECT_EQ(c1,c3);
+	// integer division always causes issues
+	//EXPECT_EQ(c4,c3);
+
 }
 
 TEST(ComplexTesting,OperatorScalarDivideEquals)
@@ -148,9 +188,14 @@ TEST(ComplexTesting,OperatorEqualsEquals)
 	complex::complex c2 = {0,1};
 	complex::complex c4 = {1,1};
 
+	complex::complex c5 = {0.0d,0.0d};
+	complex::complex c6 = {0.0f,0.0f};
+
 	EXPECT_EQ(c1,c4);
 	EXPECT_EQ(c1,c1);
 	EXPECT_NE(c1,c2);
+
+	EXPECT_EQ(c5,c6);
 }
 
 TEST(ComplexTesting,OperatorNotEquals)
@@ -158,9 +203,15 @@ TEST(ComplexTesting,OperatorNotEquals)
 	complex::complex c1 = {4,1};
 	complex::complex c2 = {1,1};
 	complex::complex c3 = {1,1};
+	
+	complex::complex c4 = {2.0f,4.2f};
+	complex::complex c5 = {4.0f,1.0f};
 
 	EXPECT_TRUE(c1!=c2);
 	EXPECT_FALSE(c2!=c3);
+
+	EXPECT_TRUE(c1!=c4);
+	EXPECT_FALSE(c1!=c5);
 }
 
 TEST(ComplexTesting,OperatorLessEqualTo)
@@ -169,9 +220,13 @@ TEST(ComplexTesting,OperatorLessEqualTo)
 	complex::complex c2 = {1,2};
 	complex::complex c3 = {1,2};
 
+	complex::complex c4 = {0.1f,0.1f};
+
 	EXPECT_TRUE(c1<=c2);
 	EXPECT_TRUE(c2<=c3);
 	EXPECT_FALSE(c2<=c1);
+
+	EXPECT_TRUE(c4<=c1);
 }
 
 TEST(ComplexTesting,OperatorGreaterEqualTo)
@@ -180,9 +235,13 @@ TEST(ComplexTesting,OperatorGreaterEqualTo)
 	complex::complex c2 = {1,2};
 	complex::complex c3 = {1,2};
 
+	complex::complex c4 = {2.0f,2.1f};
+
 	EXPECT_TRUE(c2>=c1);
 	EXPECT_TRUE(c2>=c3);
 	EXPECT_FALSE(c1>=c2);
+
+	EXPECT_TRUE(c4>=c1);
 }
 
 TEST(ComplexTesting,OperatorLessThan)
@@ -190,8 +249,12 @@ TEST(ComplexTesting,OperatorLessThan)
 	complex::complex c1 = {1,1};
 	complex::complex c2 = {2,2};
 
+	complex::complex c3 = {0.1f,0.1f};
+
 	EXPECT_TRUE(c1<c2);
 	EXPECT_FALSE(c2<c1);
+
+	EXPECT_TRUE(c3<c1);
 }
 
 TEST(ComplexTesting,OperatorGreaterThan)
@@ -199,8 +262,12 @@ TEST(ComplexTesting,OperatorGreaterThan)
 	complex::complex c1 = {1,1};
 	complex::complex c2 = {2,2};
 
+	complex::complex c3 = {2.0f,1.5f};
+
 	EXPECT_FALSE(c1>c2);
 	EXPECT_TRUE(c2>c1);
+
+	EXPECT_TRUE(c3>c1);
 }
 
 TEST(ComplexTesting,FunctionConj)
@@ -225,6 +292,21 @@ TEST(ComplexTesting,FunctionisReal)
 
 	EXPECT_TRUE(complex::isReal(c1));
 	EXPECT_FALSE(complex::isReal(c2));
+}
+
+TEST(ComplexTesting,FunctionExp)
+{
+	float theta = 0.0f;
+	float tau = 2.0f * M_PI;
+	complex::complex c1 = {1.0f,0.0f};
+	complex::complex c2 = {0.0f,1.0f};
+	complex::complex c3 = -1*c2;
+
+	EXPECT_EQ(complex::exp(theta),c1);
+	EXPECT_EQ(complex::exp(tau),	c1);
+	//EXPECT_EQ(complex::exp(M_PI), c2);
+	//EXPECT_EQ(complex::exp(-M_PI),c3); 
+
 }
 
 /*
