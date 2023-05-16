@@ -1,14 +1,21 @@
 # *utilmaths* 
 
-A short, header-based, library of maths functions for scientific computing in `C++`. 
+A short, header based, library of maths types and functions for scientific computing in `C++`. 
 
-Written for personal use, tested with [`gtest`](https://github.com/google/googletest).
+This is being written for my own personal interest and use in projects such as path-tracers. 
+
+Tested with [`gtest`](https://github.com/google/googletest).
 
 #### Features:
-- complex numbers
+- templated complex numbers with:
+	- operator overloads
+	- complex conjugate
+	- modulus
+	- complex exponentials
+	- realness test
+- complex numbers as arguments of vectors and matrix types
 
 #### TODO:
-- matrices
 - vectors
-- complex-type matrices and vectors
-- macros for common constants
+- matrices
+
