@@ -1,13 +1,14 @@
 #pragma once
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include <iostream>
 #include <concepts>
 #include <type_traits>
 
 namespace utilmaths{
 	template<typename T>
 	concept arithmetic = std::signed_integral<T> or std::floating_point<T>;
-	
+		
 	namespace complex{
 		template<arithmetic T>
 		struct complex
@@ -54,6 +55,8 @@ namespace utilmaths{
 			bool 			operator<(const complex<R> &rhs)		const	{return mod(*this)<mod(rhs);}
 			template<arithmetic R>
 			bool 			operator>(const complex<R> &rhs)		const	{return mod(*this)>mod(rhs);}
+
+			friend std::ostream& operator<<(std::ostream& os, const complex &rhs) {return os<<"("<<rhs.x<<","<<rhs.i<<"i)";}
 		};
 		
 		template<arithmetic T>
@@ -67,6 +70,14 @@ namespace utilmaths{
 	}
 
 	namespace linalg{
+		template<typename T>
+		concept argument = (std::signed_integral<T> or std::floating_point<T>) or requires {typename T::complex;};
 
+		template<argument T>
+		struct vector2
+		{
+			T x1;
+			T x2;
+		};
 	}
 }

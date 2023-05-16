@@ -286,6 +286,13 @@ TEST(ComplexTesting,OperatorGreaterThan)
 	EXPECT_TRUE(c3>c1);
 }
 
+TEST(ComplexTesting,OperatorOstream)
+{
+	std::cout<<"testing cout\n";
+	complex::complex z = {0.0,1.0};
+	std::cout<<"cnum : "<<z<<std::endl;
+}
+
 TEST(ComplexTesting,FunctionConj)
 {
 	complex::complex c1 = {1,-1};
@@ -312,7 +319,6 @@ TEST(ComplexTesting,FunctionisReal)
 
 TEST(ComplexTesting,FunctionExp)
 {
-	float theta = 0.0f;
 	double tau = 2.0d * M_PI;
 	complex::complex i1 = {0.0d,0.0d};
 	complex::complex c1 = {1.0d,0.0d};
@@ -326,4 +332,21 @@ TEST(ComplexTesting,FunctionExp)
 	EXPECT_NEAR(complex::exp(i2/4).i, c2.i,1e-15);
 	EXPECT_NEAR(complex::exp(i3).x,c3.x,1e-15);
 	EXPECT_NEAR(complex::exp(i3).i,c3.i,1e-15);
+}
+
+TEST(LinalgTesting,ComplexArgument)
+{
+	complex::complex x1 = {1.0,1.0};
+	complex::complex x2 = {1.0,-1.0};
+
+	linalg::vector2 v = {x1,x2};
+	std::cout<<v.x1<<" "<<v.x2<<std::endl;
+}
+
+TEST(LinalgTesting,RealArgument)
+{
+	double x1 = 1.0;
+	double x2 = 0.1;
+
+	linalg::vector2 v = {x1,x2};
 }
